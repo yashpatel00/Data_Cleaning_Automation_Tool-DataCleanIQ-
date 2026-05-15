@@ -26,14 +26,39 @@ st.set_page_config(
 
 
 def load_uploaded_file(uploaded_file):
-    if uploaded_file.name.endswith(".csv"):
-        return pd.read_csv(uploaded_file)
+    """
+    Load uploaded CSV or Excel file safely.
+    """
 
-    elif uploaded_file.name.endswith(".xlsx"):
-        return pd.read_excel(uploaded_file)
+    try:
+        if uploaded_file.name.endswith(".csv"):
+            try:
+                return pd.read_csv(uploaded_file)
 
-    else:
-        st.error("Unsupported file format. Please upload CSV or Excel.")
+            except pd.errors.ParserError:
+                uploaded_file.seek(0)
+
+                st.warning(
+                    "Some rows in this CSV appear to be malformed. "
+                    "The app will skip badly formatted rows and continue."
+                )
+
+                return pd.read_csv(
+                    uploaded_file,
+                    engine="python",
+                    on_bad_lines="skip"
+                )
+
+        elif uploaded_file.name.endswith(".xlsx"):
+            return pd.read_excel(uploaded_file)
+
+        else:
+            st.error("Unsupported file format. Please upload CSV or Excel.")
+            return None
+
+    except Exception as error:
+        st.error("Could not read the uploaded file.")
+        st.error(str(error))
         return None
 
 
