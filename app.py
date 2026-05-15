@@ -28,6 +28,7 @@ st.set_page_config(
 def load_uploaded_file(uploaded_file):
     """
     Load uploaded CSV or Excel file safely.
+    Handles common CSV parsing issues.
     """
 
     try:
@@ -63,6 +64,10 @@ def load_uploaded_file(uploaded_file):
 
 
 def clean_data(df, logs):
+    """
+    Run all cleaning steps.
+    """
+
     df = clean_column_names(df, logs)
     df = remove_duplicates(df, logs)
     df = trim_text_spaces(df, logs)
@@ -78,10 +83,18 @@ def clean_data(df, logs):
 
 
 def convert_df_to_csv(df):
+    """
+    Convert dataframe to downloadable CSV.
+    """
+
     return df.to_csv(index=False).encode("utf-8")
 
 
 def convert_logs_to_txt(logs):
+    """
+    Convert cleaning logs to downloadable TXT.
+    """
+
     text = "DataCleanIQ Cleaning Log\n"
     text += "=" * 50
     text += "\n\n"
@@ -93,6 +106,10 @@ def convert_logs_to_txt(logs):
 
 
 def get_cleaning_summary(before_metrics, after_metrics):
+    """
+    Create cleaning summary values.
+    """
+
     return {
         "Rows Removed": int(before_metrics["rows"] - after_metrics["rows"]),
         "Missing Values Fixed": int(before_metrics["missing_values"] - after_metrics["missing_values"]),
@@ -105,9 +122,27 @@ def get_cleaning_summary(before_metrics, after_metrics):
     }
 
 
+# =========================
+# SIDEBAR
+# =========================
+
 with st.sidebar:
-    st.title("DataCleanIQ")
+    st.title("🧹 DataCleanIQ")
     st.write("Automated data cleaning and quality reporting tool.")
+
+    st.markdown("---")
+
+    st.markdown("### 👤 About Developer")
+    st.write("Built by **Yash Patel**")
+
+    st.markdown(
+        """
+        [🔗 LinkedIn](https://www.linkedin.com/in/yashpatel100/)  
+        [💻 GitHub](https://github.com/yashpatel00)
+        """
+    )
+
+    st.markdown("---")
 
     st.markdown("### Workflow")
     st.write("1. Upload CSV/Excel")
@@ -126,6 +161,10 @@ with st.sidebar:
     st.write("- Outliers and risk values")
 
 
+# =========================
+# MAIN APP
+# =========================
+
 st.title("🧹 DataCleanIQ")
 st.subheader("Clean, validate, score, and export messy CSV/Excel datasets.")
 
@@ -138,6 +177,7 @@ uploaded_file = st.file_uploader(
     "Upload CSV or Excel file",
     type=["csv", "xlsx"]
 )
+
 
 if uploaded_file is not None:
     df = load_uploaded_file(uploaded_file)
@@ -161,12 +201,15 @@ if uploaded_file is not None:
             st.metric("Duplicate Rows", int(before_metrics["duplicate_rows"]))
 
         with col4:
-            st.metric("Invalid Values", int(
-                before_metrics["invalid_emails"]
-                + before_metrics["invalid_phones"]
-                + before_metrics["bad_date_formats"]
-                + before_metrics["invalid_numeric_values"]
-            ))
+            st.metric(
+                "Invalid Values",
+                int(
+                    before_metrics["invalid_emails"]
+                    + before_metrics["invalid_phones"]
+                    + before_metrics["bad_date_formats"]
+                    + before_metrics["invalid_numeric_values"]
+                )
+            )
 
         with col5:
             st.metric("Quality Score", before_metrics["quality_score"])
@@ -209,6 +252,11 @@ if uploaded_file is not None:
             st.session_state["quality_report"] = quality_report
             st.session_state["before_metrics"] = before_metrics
             st.session_state["after_metrics"] = after_metrics
+
+
+# =========================
+# OUTPUT SECTION
+# =========================
 
 if "cleaned_df" in st.session_state:
     cleaned_df = st.session_state["cleaned_df"]
@@ -267,12 +315,13 @@ if "cleaned_df" in st.session_state:
         st.metric("Missing Fixed", summary["Missing Values Fixed"])
 
     with s2:
-        st.metric("Invalid Values Fixed", (
+        st.metric(
+            "Invalid Values Fixed",
             summary["Invalid Emails Fixed"]
             + summary["Invalid Phones Fixed"]
             + summary["Bad Date Formats Fixed"]
             + summary["Invalid Numeric Values Fixed"]
-        ))
+        )
 
     with s3:
         st.metric("Duplicates Removed", summary["Duplicates Removed"])
@@ -347,3 +396,21 @@ if "cleaned_df" in st.session_state:
     with st.expander("View Cleaning Log"):
         for log in logs:
             st.write("-", log)
+
+
+# =========================
+# FOOTER
+# =========================
+
+st.markdown("---")
+
+st.markdown(
+    """
+    <div style='text-align: center; font-size: 14px;'>
+        Built by <b>Yash Patel</b> |
+        <a href="https://www.linkedin.com/in/yashpatel100/" target="_blank">LinkedIn</a> |
+        <a href="https://github.com/yashpatel00" target="_blank">GitHub</a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
