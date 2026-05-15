@@ -79,19 +79,19 @@ The tool does not delete suspicious values automatically. It flags them for revi
 
 ### Dashboard Overview
 
-![Dashboard Overview](screenshots/Dashboard%20Overview.png)
+![Dashboard Overview](Screenshots/Dashboard%20Overview.png)
 
 ### Before Cleaning View
 
-![Before Cleaning View](screenshots/Before%20Cleaning%20View.png)
+![Before Cleaning View](Screenshots/Before%20Cleaning%20View.png)
 
 ### Cleaning Summary
 
-![Cleaning Summary](screenshots/Cleaning%20Summary.png)
+![Cleaning Summary](Screenshots/Cleaning%20Summary.png)
 
 ### Data Quality Report
 
-![Data Quality Report](screenshots/Data%20Quality%20Report.png)
+![Data Quality Report](Screenshots/Data%20Quality%20Report.png)
 
 ## Project Structure
 
@@ -101,7 +101,7 @@ data-cleaning-automation-tool/
 ├── main.py
 ├── requirements.txt
 ├── README.md
-├── screenshots/
+├── Screenshots/
 │   ├── Dashboard Overview.png
 │   ├── Before Cleaning View.png
 │   ├── Cleaning Summary.png
