@@ -132,18 +132,6 @@ with st.sidebar:
 
     st.markdown("---")
 
-    st.markdown("### 👤 About Developer")
-    st.write("Built by **Yash Patel**")
-
-    st.markdown(
-        """
-        [🔗 LinkedIn](https://www.linkedin.com/in/yashpatel100/)  
-        [💻 GitHub](https://github.com/yashpatel00)
-        """
-    )
-
-    st.markdown("---")
-
     st.markdown("### Workflow")
     st.write("1. Upload CSV/Excel")
     st.write("2. Review original quality")
