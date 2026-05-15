@@ -1,0 +1,66 @@
+DataCleanIQ Cleaning Log
+==================================================
+
+1. Data loaded from: sample_data/messy_sales_data.csv
+2. Initial rows: 19
+3. Initial columns: 10
+4. Column names cleaned.
+5. Old columns: ['Customer ID', ' Customer Name ', 'Email', 'Order Date', 'Sales Amount', 'City', 'Status', 'Phone Number', 'Product Category', 'Quantity']
+6. New columns: ['customer_id', 'customer_name', 'email', 'order_date', 'sales_amount', 'city', 'status', 'phone_number', 'product_category', 'quantity']
+7. Duplicate rows removed: 1
+8. Extra spaces removed from text columns.
+9. Text case standardized for columns: ['customer_name', 'email', 'sales_amount', 'city', 'status', 'product_category']
+10. Email column validated: email
+11. Invalid emails found: 1
+12. Phone column validated: phone_number
+13. Phone numbers formatted: 13
+14. Invalid phone numbers found: 2
+15. Numeric column converted: sales_amount
+16. Number-word values converted: 1
+17. Invalid numeric values found: 0
+18. Numeric column converted: quantity
+19. Number-word values converted: 0
+20. Invalid numeric values found: 0
+21. Date column fixed: order_date
+22. Missing dates found: 1
+23. Invalid dates found: 2
+24. Missing ID values filled with Unknown in column: customer_id
+25. Values filled: 1
+26. Missing text values filled with Unknown in column: customer_name
+27. Values filled: 1
+28. Missing text values filled with Unknown in column: email
+29. Values filled: 4
+30. Missing numeric values filled in column: sales_amount
+31. Fill method: median
+32. Median value used: 450.0
+33. Values filled: 2
+34. Missing text values filled with Unknown in column: city
+35. Values filled: 1
+36. Missing text values filled with Unknown in column: status
+37. Values filled: 1
+38. Missing text values filled with Unknown in column: phone_number
+39. Values filled: 5
+40. Missing text values filled with Unknown in column: product_category
+41. Values filled: 1
+42. Missing numeric values filled in column: quantity
+43. Fill method: median
+44. Median value used: 2.0
+45. Values filled: 1
+46. Missing values handled.
+47. Outlier flag added: sales_amount_flag
+48. Flagged values in sales_amount: 3
+49. IQR lower limit for sales_amount: -356.25
+50. IQR upper limit for sales_amount: 1293.75
+51. Outlier flag added: quantity_flag
+52. Flagged values in quantity: 3
+53. IQR lower limit for quantity: -0.5
+54. IQR upper limit for quantity: 3.5
+55. Outlier flag columns created: ['sales_amount_flag', 'quantity_flag']
+56. Before quality score: 64.42
+57. After quality score: 100.0
+58. Quality score improvement: 35.58
+59. Final rows: 18
+60. Final columns: 12
+61. Final duplicate rows: 0
+62. Final missing values: 0
+63. Cleaned file saved to: outputs/cleaned_sales_data.csv
